@@ -1,8 +1,6 @@
 
 # Function to apply separate styles for different components
 import streamlit as st
-import time
-import openpyxl
 import pandas as pd
 import os
 from io import BytesIO
