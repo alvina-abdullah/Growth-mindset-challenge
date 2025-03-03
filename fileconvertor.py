@@ -4,8 +4,6 @@
 import streamlit as st
 import time
 import pandas as pd
-import tkinter as tk
-from tkinter import messagebox
 import os
 from io import BytesIO
 
