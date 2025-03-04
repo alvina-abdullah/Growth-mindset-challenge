@@ -1,5 +1,3 @@
-
-
 # Function to apply separate styles for different components
 import streamlit as st
 import time
@@ -7,11 +5,14 @@ import pandas as pd
 
 from io import BytesIO
 
+# Check if openpyxl is installed
+try:
+    import openpyxl
+except ImportError:
+    st.error("openpyxl is not installed. Please install it using 'pip install openpyxl'.")
 
 # Move this to the first line after imports
 st.set_page_config(page_title="File Converter", layout="wide")
-
-
 
 # Function to apply separate styles for different components
 def apply_theme():
@@ -72,23 +73,21 @@ def apply_theme():
             background-color: #F8D7DA;
             color: #721C24;
             padding: 10px;
-          
         }
         .st-emotion-cache-atejua {
         color: black
         }
 
- st-emotion-cache-b0y9n5 e1d5ycv52{
- background-color: #721C24;}
-.st-emotion-cache-atejua.egexzqm0 {
-background-color:white;}
+        st-emotion-cache-b0y9n5 e1d5ycv52{
+        background-color: #721C24;}
+        .st-emotion-cache-atejua.egexzqm0 {
+        background-color:white;}
         </style>
         """,
         unsafe_allow_html=True,
     )
 
 apply_theme()
-
 
 st.markdown("<h1 class='main-title'>🤓 Growth Mindset Challenge</h1>", unsafe_allow_html=True)
 st.markdown("<h2 class='sub-title'>📂 File Converter & Cleaner</h2>", unsafe_allow_html=True)
@@ -99,7 +98,7 @@ files = st.file_uploader("Upload CSV or Excel Files.", type=["csv", "xlsx"], acc
 if files:
     for file in files:
         ext = file.name.split(".")[-1]
-        df = pd.read_csv(file) if ext == "csv" else pd.read_excel(file)
+        df = pd.read_csv(file) if ext == "csv" else pd.read_excel(file, engine="openpyxl")
 
         st.markdown(f"<h3 class='sub-title'>📄 {file.name} - Preview</h3>", unsafe_allow_html=True)
         st.dataframe(df.head())
@@ -138,6 +137,3 @@ if files:
             st.download_button("⬇️ Download file", file_name=new_name, data=output.getvalue(), mime=mime)
 
         st.markdown("<div class='success-message'>✅ Processing Complete!</div>", unsafe_allow_html=True)
-
-
-
